@@ -1,57 +1,64 @@
 /* eslint-env node */
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'fs'
+import path from 'path'
 
-import babel from 'rollup-plugin-babel';
-import { terser } from 'rollup-plugin-terser';
-import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
+import {terser} from 'rollup-plugin-terser'
+import typescript from 'rollup-plugin-typescript2'
+import {sizeSnapshot} from 'rollup-plugin-size-snapshot'
 
-const { version, license, name } = require('./package.json');
+const {version, license, name} = require('./package.json')
 const licenseData = fs.readFileSync(path.join(process.cwd(), 'LICENSE.md'), {
-  encoding: 'utf-8',
-});
+    encoding: 'utf-8',
+})
 
 const bannerPlugin = {
-  banner: `/**
+    banner: `/**
  * @license ${name} ${version}
  * ${licenseData.split('\n', 1)}
  * License: ${license}
  */`,
-};
-
-const optimizeReplace = {
-  name: 'optimizeReplace',
-  transform: code =>
-    code
-      .replace(/(var|const) TYPE_[^\n]+/g, '')
-      .replace(/TYPE_TEXT/g, '0')
-      .replace(/TYPE_VARIABLE/g, '1')
-      .replace(/TYPE_EXPRESSION/g, '2')
-      .replace(/export var /g, 'var '), // Only needed in esm
-};
+}
 
 const exportFormat = format => ({
-  input: 'src/frenchkiss.js',
-  output: {
-    name,
-    file: `dist/${format}/frenchkiss.js`,
-    format,
-  },
-  plugins: [
-    bannerPlugin,
-    babel(),
-    optimizeReplace,
-    terser({
-      toplevel: true,
-      compress: {
-        unsafe: true,
-      },
-      output: { comments: /@license/ }
-    }),
-    sizeSnapshot(),
-  ].filter(v => v),
-  external: ['src/compiler.js'],
-});
+    input: 'src/frenchkiss.ts',
+    output: {
+        name,
+        file: `dist/frenchkiss.${format}.js`,
+        format,
+        sourcemap: process.env.ENVIRONMENT === 'DEV',
+    },
+    plugins: [
+        bannerPlugin,
+        typescript(),
+        process.env.ENVIRONMENT !== 'DEV' &&
+            terser({
+                ecma: '2015',
+                toplevel: true,
+                mangle: {
+                    eval: true,
+                    module: true,
+                    toplevel: true,
+                    safari10: true,
+                },
+                compress: {
+                    arguments: true,
+                    booleans_as_integers: true,
+                    drop_console: true,
+                    hoist_funs: true,
+                    hoist_vars: true,
+                    module: true,
+                    pure_getters: true,
+                    keep_fargs: false,
+                    passes: 3,
+                },
+                output: {
+                    comments: /@license/,
+                },
+            }),
+        sizeSnapshot(),
+    ].filter(v => v),
+    external: ['src/compiler.ts'],
+})
 
-export default ['umd', 'cjs', 'esm'].map(exportFormat);
+export default ['umd', 'cjs', 'esm'].map(exportFormat)
