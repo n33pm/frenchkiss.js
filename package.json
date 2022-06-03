@@ -1,57 +1,81 @@
 {
-  "name": "frenchkiss",
-  "version": "0.2.3",
-  "description": "The blazing fast lightweight translation module for javascript",
-  "author": "Vincent Thibault <vthibault.mobile@gmail.com>",
-  "license": "MIT",
-  "main": "./dist/cjs/frenchkiss.js",
-  "module": "./dist/esm/frenchkiss.js",
-  "browser": {
-    "./dist/cjs/frenchkiss.js": "./dist/umd/frenchkiss.js"
-  },
-  "files": [
-    "dist/",
-    "index.d.ts"
-  ],
-  "bugs": {
-    "url": "https://github.com/koala-interactive/frenchkiss.js/issues"
-  },
-  "repository": "github:koala-interactive/frenchkiss.js",
-  "scripts": {
-    "lint": "eslint src/*.js test/*.js",
-    "test": "mocha --require @babel/register --recursive test",
-    "build": "del dist && npm run update-license && rollup -c && npm run update-filesize",
-    "update-license": "node utils/update-license.js",
-    "update-filesize": "node utils/update-size.js"
-  },
-  "keywords": [
-    "frenchkiss",
-    "french-kiss",
-    "french kiss",
-    "i18n",
-    "l10n",
-    "internationalization",
-    "internationalisation",
-    "translate",
-    "translation",
-    "interpolation",
-    "language"
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
-    "@babel/preset-env": "^7.1.6",
-    "@babel/register": "^7.0.0",
-    "chai": "^4.2.0",
-    "chai-spies": "^1.0.0",
-    "del-cli": "^1.1.0",
-    "eslint": "^5.12.1",
-    "eslint-config-prettier": "^4.0.0",
-    "mocha": "^5.2.0",
-    "rollup": "^1.1.2",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-size-snapshot": "^0.8.0",
-    "rollup-plugin-terser": "^4.0.3"
-  }
+    "name": "frenchkiss.ts",
+    "version": "0.3.0",
+    "description": "The blazing fast lightweight translation module for javascript",
+    "author": "Patrick Malleier <github@numero33.com>",
+    "license": "MIT",
+    "main": "./dist/frenchkiss.cjs.js",
+    "module": "./dist/frenchkiss.esm.js",
+    "typings": "dist/index.d.ts",
+    "browser": {
+        "./dist/frenchkiss.cjs.js": "./dist/frenchkiss.umd.js"
+    },
+    "files": [
+        "dist"
+    ],
+    "bugs": {
+        "url": "https://github.com/numero33/frenchkiss.ts/issues"
+    },
+    "repository": "github:numero33/frenchkiss.ts",
+    "scripts": {
+        "start": "cross-env ENVIRONMENT=DEV rollup -c --watch",
+        "lint": "eslint src/ test/",
+        "test": "jest --passWithNoTests",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "build": "npm run update-license && rollup -c && npm run update-filesize",
+        "update-license": "node utils/update-license.js",
+        "update-filesize": "node utils/update-size.js"
+    },
+    "keywords": [
+        "frenchkiss.ts",
+        "frenchkiss",
+        "french-kiss",
+        "french kiss",
+        "i18n",
+        "l10n",
+        "internationalization",
+        "internationalisation",
+        "translate",
+        "translation",
+        "interpolation",
+        "language"
+    ],
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn lint"
+        }
+    },
+    "size-limit": [
+        {
+            "path": "dist/frenchkiss.umd.js",
+            "limit": "10 KB"
+        },
+        {
+            "path": "dist/frenchkiss.cjs.js",
+            "limit": "10 KB"
+        },
+        {
+            "path": "dist/frenchkiss.esm.js",
+            "limit": "10 KB"
+        }
+    ],
+    "devDependencies": {
+        "@size-limit/preset-app": "^7.0.8",
+        "@size-limit/preset-small-lib": "^7.0.8",
+        "@types/jest": "^28.1.0",
+        "cross-env": "^7.0.3",
+        "eslint": "^5.12.1",
+        "eslint-config-prettier": "^4.0.0",
+        "husky": "^8.0.1",
+        "jest": "^28.1.0",
+        "rollup": "^1.1.2",
+        "rollup-plugin-size-snapshot": "^0.8.0",
+        "rollup-plugin-terser": "^4.0.3",
+        "rollup-plugin-typescript2": "^0.32.0",
+        "size-limit": "^7.0.8",
+        "ts-jest": "^28.0.3",
+        "tslib": "^2.4.0",
+        "typescript": "^4.7.2"
+    }
 }
