@@ -32,8 +32,8 @@ interface ITranslationLangStore {
     [lang: string]: ITranslationStore
 }
 
-export const cache: CacheItems = {}
-export const store: ITranslationLangStore = {}
+const cache: CacheItems = {}
+const store: ITranslationLangStore = {}
 
 let _plural: {[lang: string]: pluralRule} = {}
 let _locale = ''
@@ -208,13 +208,4 @@ export const unset = (language: string) => {
 export default {
     cache,
     store,
-    t,
-    onMissingKey,
-    onMissingVariable,
-    locale,
-    fallback,
-    set,
-    unset,
-    extend,
-    plural,
 }

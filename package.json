@@ -1,6 +1,6 @@
 {
     "name": "frenchkiss.ts",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "The blazing fast lightweight translation module for javascript",
     "author": "Patrick Malleier <github@numero33.com>",
     "license": "MIT",
@@ -23,9 +23,10 @@
         "test": "jest --passWithNoTests",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
-        "build": "npm run update-license && rollup -c && npm run update-filesize",
+        "build": "yarn update-license && rollup -c && yarn update-filesize",
         "update-license": "node utils/update-license.js",
-        "update-filesize": "node utils/update-size.js"
+        "update-filesize": "node utils/update-size.js",
+        "prepare": "yarn build"
     },
     "keywords": [
         "frenchkiss.ts",
