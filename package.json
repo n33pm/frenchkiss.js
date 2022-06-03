@@ -1,6 +1,6 @@
 {
     "name": "frenchkiss.ts",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "The blazing fast lightweight translation module for javascript",
     "author": "Patrick Malleier <github@numero33.com>",
     "license": "MIT",
@@ -23,9 +23,10 @@
         "test": "jest --passWithNoTests",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
-        "build": "npm run update-license && rollup -c && npm run update-filesize",
+        "build": "yarn update-license && rollup -c && yarn update-filesize",
         "update-license": "node utils/update-license.js",
-        "update-filesize": "node utils/update-size.js"
+        "update-filesize": "node utils/update-size.js",
+        "prepare": "yarn build"
     },
     "keywords": [
         "frenchkiss.ts",
@@ -65,16 +66,16 @@
         "@size-limit/preset-small-lib": "^7.0.8",
         "@types/jest": "^28.1.0",
         "cross-env": "^7.0.3",
-        "eslint": "^5.12.1",
-        "eslint-config-prettier": "^4.0.0",
+        "eslint": "^8.16.0",
+        "eslint-config-prettier": "^8.5.0",
         "husky": "^8.0.1",
         "jest": "^28.1.0",
-        "rollup": "^1.1.2",
-        "rollup-plugin-size-snapshot": "^0.8.0",
-        "rollup-plugin-terser": "^4.0.3",
-        "rollup-plugin-typescript2": "^0.32.0",
+        "rollup": "^2.75.5",
+        "rollup-plugin-size-snapshot": "^0.12.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "rollup-plugin-typescript2": "git+https://github.com/agilgur5/rollup-plugin-typescript2#issue-339",
         "size-limit": "^7.0.8",
-        "ts-jest": "^28.0.3",
+        "ts-jest": "^28.0.4",
         "tslib": "^2.4.0",
         "typescript": "^4.7.2"
     }
