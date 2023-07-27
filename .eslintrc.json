@@ -1,22 +1,24 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "airbnb/hooks",
-    "prettier"
-  ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "plugins": [
-    "import",
-    "prettier"
-  ],
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2018
-  },
-  "rules": {
-    "prettier/prettier": "error"
-  }
+    "extends": [
+        "eslint:recommended",
+        "airbnb/hooks",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:@typescript-eslint/strict",
+        "prettier"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "plugins": ["import", "@typescript-eslint", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2018,
+        "project": ["./tsconfig.json"]
+    },
+    "rules": {
+        "prettier/prettier": "error"
+    }
 }

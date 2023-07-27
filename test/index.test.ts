@@ -1,4 +1,4 @@
-import i18n, {t, locale, set, fallback, unset, extend, onMissingKey, onMissingVariable, plural} from '../src/frenchkiss'
+import i18n, {t, locale, set, fallback, unset, extend, onMissingKey, onMissingVariable, plural} from '../src'
 
 describe('locale', () => {
     it('should not bug if no locale', () => {

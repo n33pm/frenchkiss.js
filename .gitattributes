@@ -1,6 +1,4 @@
 * text=auto
-/dist/frenchkiss.cjs.js binary
-/dist/frenchkiss.esm.js binary
-/dist/frenchkiss.umd.js binary
-/package-lock.json binary
-/yarn.lock binary
+/dist/index.js binary
+/dist/compiler.js binary
+/pnpm-lock.json binary

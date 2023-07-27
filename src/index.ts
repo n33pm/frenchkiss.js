@@ -1,6 +1,13 @@
+/* eslint-disable @typescript-eslint/no-dynamic-delete */
 import {compileCode} from './compiler'
 
-type CacheDataFunction = (params?: object, pluralRule?: pluralRule, key?: string, language?: string, missingVariableHandler?: missingVariableHandler) => string
+export type CacheDataFunction = (
+    params?: object,
+    pluralRule?: pluralRule,
+    key?: string,
+    language?: string,
+    missingVariableHandler?: missingVariableHandler,
+) => string
 
 type pluralRule = (count: number) => string | number
 
@@ -8,13 +15,9 @@ type missingVariableHandler = (variable: string, key: string, language: string) 
 
 type TMissingKeyHandler = (key: string, params?: ITranslationParams, language?: string) => string
 
-interface CacheData {
-    [key: string]: CacheDataFunction
-}
+type CacheData = Record<string, CacheDataFunction>
 
-interface CacheItems {
-    [lang: string]: CacheData
-}
+type CacheItems = Record<string, CacheData>
 
 interface ITranslationObject {
     [key: string]: string | number | ITranslationObject | null | undefined
@@ -25,17 +28,15 @@ type ITranslationParams = ITranslationObject | string[]
 interface ITranslationsInput {
     [key: string]: ITranslationsInput | string | number
 }
-interface ITranslationStore {
-    [key: string]: string
-}
-interface ITranslationLangStore {
-    [lang: string]: ITranslationStore
-}
+
+type ITranslationStore = Record<string, string>
+
+type ITranslationLangStore = Record<string, ITranslationStore>
 
 const cache: CacheItems = {}
 const store: ITranslationLangStore = {}
 
-let _plural: {[lang: string]: pluralRule} = {}
+const _plural: {[lang: string]: pluralRule} = {}
 let _locale = ''
 let _fallback = ''
 
@@ -49,28 +50,28 @@ let missingKeyHandler: TMissingKeyHandler = (key: string): string => key
  * Default function used in case of missing variable
  * Returns the value you want
  */
-let missingVariableHandler: missingVariableHandler = (): string => ''
+let defaultMissingVariableHandler: missingVariableHandler = (): string => ''
 
 /**
  * Get compiled code from cache or ask to generate it
  */
-const getCompiledCode = (key: string, language: string): Function | null =>
+const getCompiledCode = (key: string, language: string): CacheDataFunction | null =>
     (cache[language] && cache[language][key]) ||
-    (store[language] && typeof store[language][key] === 'string' && (cache[language][key] = compileCode(store[language][key]) as CacheDataFunction))
+    (store[language] && typeof store[language][key] === 'string' && (cache[language][key] = compileCode(store[language][key])))
 
 /**
  * Get back translation and interpolate values stored in 'params' parameter
  */
 export const t = (key: string, params?: ITranslationParams, language?: string): string => {
-    let fn,
-        lang = language || _locale
+    let lang = language || _locale
+    let fn: CacheDataFunction | null
 
     // Try to get the specified or locale
     if (lang) {
         fn = getCompiledCode(key, lang)
 
         if (fn) {
-            return fn(params, _plural[lang], key, lang, missingVariableHandler)
+            return fn(params, _plural[lang], key, lang, defaultMissingVariableHandler)
         }
     }
 
@@ -81,7 +82,7 @@ export const t = (key: string, params?: ITranslationParams, language?: string): 
         fn = getCompiledCode(key, lang)
 
         if (fn) {
-            return fn(params, _plural[lang], key, lang, missingVariableHandler)
+            return fn(params, _plural[lang], key, lang, defaultMissingVariableHandler)
         }
     }
 
@@ -103,7 +104,7 @@ export const onMissingKey = (fn: TMissingKeyHandler) => {
  * - Report the poblem to your server
  */
 export const onMissingVariable = (fn: missingVariableHandler) => {
-    missingVariableHandler = fn
+    defaultMissingVariableHandler = fn
 }
 
 /**
