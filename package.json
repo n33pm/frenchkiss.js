@@ -45,20 +45,16 @@
     },
     "size-limit": [
         {
-            "path": "dist/frenchkiss.umd.js",
-            "limit": "10 KB"
+            "path": "dist/compiler.js",
+            "limit": "1 KB"
         },
         {
-            "path": "dist/frenchkiss.cjs.js",
-            "limit": "10 KB"
-        },
-        {
-            "path": "dist/frenchkiss.esm.js",
-            "limit": "10 KB"
+            "path": "dist/index.js",
+            "limit": "2 KB"
         }
     ],
     "devDependencies": {
-        "@size-limit/preset-small-lib": "^8.1.0",
+        "@size-limit/preset-small-lib": "^9.0.0",
         "@testing-library/react": "^14.0.0",
         "@total-typescript/ts-reset": "^0.4.2",
         "@types/jest": "^29.2.1",
@@ -78,7 +74,7 @@
         "process": "^0.11.10",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "size-limit": "^8.1.0",
+        "size-limit": "^9.0.0",
         "ts-jest": "^29.0.3",
         "typescript": "^5.1.6"
     }
