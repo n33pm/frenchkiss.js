@@ -905,7 +905,7 @@ packages:
     dependencies:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.4
-      '@types/istanbul-reports': 3.0.2
+      '@types/istanbul-reports': 3.0.4
       '@types/node': 20.8.6
       '@types/yargs': 17.0.28
       chalk: 4.1.2
@@ -1107,8 +1107,8 @@ packages:
       '@types/istanbul-lib-coverage': 2.0.4
     dev: true
 
-  /@types/istanbul-reports@3.0.2:
-    resolution: {integrity: sha512-kv43F9eb3Lhj+lr/Hn6OcLCs/sSM8bt+fIaP11rCYngfV6NVjzWXJ17owQtDQTL9tQ8WSLUrGsSJ6rJz0F1w1A==}
+  /@types/istanbul-reports@3.0.4:
+    resolution: {integrity: sha512-pk2B1NWalF9toCRu6gjBzR69syFjP4Od8WRAX+0mmf9lAjCRicLOWc+ZrxZHx/0XRjotgkF9t6iaMJ+aXcOdZQ==}
     dependencies:
       '@types/istanbul-lib-report': 3.0.1
     dev: true
